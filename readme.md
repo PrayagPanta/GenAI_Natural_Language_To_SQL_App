@@ -9,6 +9,7 @@ pip install kaggle
 ```
 
 Then, download the "2015-flight-delays-and-cancellation-prediction" dataset from Kaggle, extract the files, and create the `cleaned_flights.db` database using the provided Jupyter notebook.
+Then, install required dependencies via requirements.txt file.
 
 ### Notes on Database Structure:
 The database used in this project is a cleaned version of the dataset. However, this structure may not be optimal. A thorough analysis of the use case is required to determine the appropriate fields and structure for the database based on the CSV data.
