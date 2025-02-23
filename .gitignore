@@ -1,0 +1,9 @@
+/main/user_sessions.db
+/main/.env
+/cleaned_flights.db
+/flight-delays.zip
+/data/
+/.venv/
+/.idea/
+/main/prompts/__pycache__/
+/main/service/__pycache__/
