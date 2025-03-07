@@ -3,11 +3,12 @@ import os
 
 import httpx
 from dotenv import load_dotenv
+from loguru import logger
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
-
 
 MODEL_NAME = "gemini-2.0-flash"
 load_dotenv()
+
 
 @retry(
     retry=retry_if_exception_type((httpx.RequestError, httpx.TimeoutException, httpx.HTTPStatusError)),
@@ -15,11 +16,12 @@ load_dotenv()
     wait=wait_exponential(multiplier=1, min=2, max=10),
     reraise=True
 )
-async def make_http_request_to_gemini(prompt: dict) -> dict:
+async def make_http_request_to_gemini(prompt: str) -> dict:
     """
     Sends an asynchronous HTTP POST request to the Gemini API with retry logic.
     The prompt is wrapped inside a JSON request and the response JSON is returned.
     """
+    logger.debug(f"Calling Gemini to get query for the prompt {prompt}")
     request_body = {
         "contents": [{
             "parts": [{"text": json.dumps(prompt)}]

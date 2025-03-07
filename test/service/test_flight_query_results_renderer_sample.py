@@ -1,19 +1,16 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-# Adjust the import below to point to the module where return_results_html is defined.
 from service.flight_query_results_renderer import return_results_html
+
 
 @pytest.mark.asyncio
 async def test_return_results_html(mocker):
-    # Patch set_session_data in the module where it is used.
-    # Replace 'service.flight_query_results_renderer' with your actual module path if different.
     mock_set_session_data = AsyncMock()
     mocker.patch(
         'service.flight_query_results_renderer.set_session_data',
         mock_set_session_data
     )
 
-    # Patch HTMLResponse so we can intercept its creation.
     mock_html_response = MagicMock()
     mocker.patch(
         'service.flight_query_results_renderer.HTMLResponse',
@@ -28,8 +25,6 @@ async def test_return_results_html(mocker):
     rows = [["Data1", "Data2"], ["Data3", "Data4"]]
     session_id = "test_session_id"
     user_query = "Sample user query"
-
-    # Call the function under test.
     response = await return_results_html(
         base_query,
         columns,

@@ -1,5 +1,3 @@
-
-
 def get_formatted_nlp_to_sql_prompt(user_input: str) -> str:
     """Returns prompt to convert user provided input to SQL Query."""
 
@@ -52,3 +50,22 @@ def get_formatted_nlp_to_sql_prompt(user_input: str) -> str:
             
             User Input: {user_input}
 """
+
+
+def get_prompt_to_correct_error(previous_prompt: str, base_sqlite_query: str, sql_query_exception: Exception) -> str:
+    """Returns prompt to correct erroneous query generated first time around."""
+    return f"""
+            Task: Revise the SQLite query to fix the error.
+            
+            Original Prompt:
+            {previous_prompt}
+            
+            Generated SQLite Query:
+            {base_sqlite_query}
+            
+            Error Message:
+            {sql_query_exception}
+            
+            Please provide a corrected SQLite query that resolves the error.
+            IMPORTANT: The output must contain only a corrected SQLite query for the original query  with no additional text, explanations, or extraneous characters.
+            """
