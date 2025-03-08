@@ -14,6 +14,8 @@ DB_PATH = "../cleaned_flights.db"
 async def execute_sql_query(query: str) -> Tuple[List[dict], List[str]]:
     """Executes the SQL query against the SQLite database and returns results."""
     connection = await aiosqlite.connect(DB_PATH)
+    if connection is None:
+        raise ConnectionError("Failed to establish a connection to the flights database.")
     async with connection.execute(query) as cursor:
         rows = await cursor.fetchall()
         columns = [description[0] for description in cursor.description] if cursor.description else []
