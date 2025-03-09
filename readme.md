@@ -3,7 +3,8 @@
 ## 1.Download the dataset and Initialize database.
 Download the `2015-flight-delays-and-cancellation-prediction` dataset from Kaggle, extract the 3 csv files in `data` folder, and create
 the `cleaned_flights.db` database using the provided Jupyter notebook.
-Then, install required dependencies via `requirements.txt` file.
+Then, install required dependencies via `requirements.txt` file. Finally, create an .env file
+inside main folder and add **GEMINI_API_KEY** in the env file for using Gemini Flash 2.0 Model.
 
 ### Notes on Database Structure:
 
@@ -33,7 +34,7 @@ python app.py
       for such implementations.
 
 3. **Unit & Integration Tests:**
-    - Only a sample of unit tests has been added. However, Complete sets of Unit and integration tests should be added to ensure robustness.
+    - Only one sample unit test has been added here due to time constraints. However, Complete sets of Unit and integration tests should be added to ensure robustness.
 
 5. **Database Indexes:**
     - Consider adding indexes to the database for performance optimization based on query patterns and requirements.
@@ -63,4 +64,7 @@ python app.py
    - Ensure that your app is secured with **SSL/TLS** and **IAM/RBAC** for access control.
    - Use **WAF** (AWS Web Application Firewall) or **Azure WAF** for added protection against threats.
 
+6. **For Credentials**:
+   - Sensitive credentials should be securely managed using **Azure Key Vault** or **AWS Secrets Manager**.Local environment files and using
+     dotenv should be avoided in production setup.
 ---
