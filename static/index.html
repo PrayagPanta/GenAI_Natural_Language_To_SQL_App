@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flight Query App</title>
-  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    #processing {
-      display: none;
-      text-align: center;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #4a5568;
-      margin-top: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Flight Query App</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #processing {
+          display: none;
+          text-align: center;
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #4a5568;
+          margin-top: 1rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen"
       style="background: url('https://www.diesel-plus.com/wp-content/uploads/2019/07/Airplane-Sky-201811-001-720x475.jpg') no-repeat center center/cover;">
@@ -26,52 +26,53 @@
     <!-- Query Input Form -->
     <!-- hx-target set to "#results-container" and swap method to "innerHTML" so only the results area is updated -->
     <form id="query-form" hx-post="/query" hx-target="#results-container" hx-swap="innerHTML">
-      <div class="mb-4">
-        <label for="query" class="block text-gray-700 font-medium mb-2">Enter your query:</label>
-        <textarea id="query" name="query" placeholder="e.g., Give me unique names of airlines and their average delay duration sorted in descending order. "
-                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl h-32 resize-y"
-                  required></textarea>
-      </div>
-      <button type="submit"
-              class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors">
-        Submit
-      </button>
+        <div class="mb-4">
+            <label for="query" class="block text-gray-700 font-medium mb-2">Enter your query:</label>
+            <textarea id="query" name="query"
+                      placeholder="e.g., Give me unique names of airlines and their average delay duration sorted in descending order. "
+                      class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl h-32 resize-y"
+                      required></textarea>
+        </div>
+        <button type="submit"
+                class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors">
+            Submit
+        </button>
     </form>
 
     <!-- Processing Message (Initially Hidden) -->
     <div id="processing" class="text-center text-lg font-semibold text-gray-700 mt-4 hidden">
-      Processing...
+        Processing...
     </div>
 
     <!-- Container for results, pagination, and rating form -->
     <div id="results-container" class="mt-4 p-6 rounded-lg shadow-lg bg-white bg-opacity-90">
-      <!-- Results will be inserted here dynamically -->
+        <!-- Results will be inserted here dynamically -->
     </div>
 </div>
 
 <script>
-  document.addEventListener('htmx:beforeRequest', function() {
-    document.getElementById('processing').style.display = "block";
-  });
+    document.addEventListener('htmx:beforeRequest', function() {
+      document.getElementById('processing').style.display = "block";
+    });
 
-  document.addEventListener('htmx:afterRequest', function(evt) {
-    document.getElementById('processing').style.display = "none";
-    // If the request was to the rating endpoint, nothing additional needs to be done
-    // because the /rate endpoint now returns a new empty results container.
-    if (!evt.detail.path || !evt.detail.path.includes('/rate')) {
-      const container = document.getElementById('results-container');
-      if (container) {
-        container.scrollIntoView({ behavior: 'smooth' });
+    document.addEventListener('htmx:afterRequest', function(evt) {
+      document.getElementById('processing').style.display = "none";
+      // If the request was to the rating endpoint, nothing additional needs to be done
+      // because the /rate endpoint now returns a new empty results container.
+      if (!evt.detail.path || !evt.detail.path.includes('/rate')) {
+        const container = document.getElementById('results-container');
+        if (container) {
+          container.scrollIntoView({ behavior: 'smooth' });
+        }
       }
-    }
-  });
+    });
 
-  document.getElementById('query').addEventListener('input', function() {
-    const resultsContainer = document.getElementById('results-container');
-    if (resultsContainer) {
-      resultsContainer.innerHTML = '';
-    }
-  });
+    document.getElementById('query').addEventListener('input', function() {
+      const resultsContainer = document.getElementById('results-container');
+      if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+      }
+    });
 </script>
 </body>
 </html>
